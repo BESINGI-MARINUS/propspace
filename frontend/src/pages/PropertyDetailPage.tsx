@@ -76,7 +76,6 @@ export const PropertyDetailPage = () => {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Gallery */}
         <div>
           <div className="rounded-card overflow-hidden bg-surface h-72 sm:h-96">
             <img
@@ -111,7 +110,6 @@ export const PropertyDetailPage = () => {
           )}
         </div>
 
-        {/* Details */}
         <div className="flex flex-col gap-4">
           <div className="flex gap-2 flex-wrap">
             <span
@@ -128,11 +126,11 @@ export const PropertyDetailPage = () => {
           <h1 className="font-display text-3xl text-ink">{property.title}</h1>
 
           <p className="text-ink-muted text-sm">
-            📍 {property.location.city}, {property.location.country}
+            {property.location.city}, {property.location.country}
           </p>
 
           <p className="text-primary font-bold text-3xl">
-            ${property.price.toLocaleString()}
+            FCFA{property.price.toLocaleString()}
             {property.listingType === "rent" && (
               <span className="text-ink-light font-normal text-base">/mo</span>
             )}

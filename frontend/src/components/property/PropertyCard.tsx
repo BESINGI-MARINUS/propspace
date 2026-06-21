@@ -31,7 +31,6 @@ export const PropertyCard = ({ property }: Props) => {
             (e.target as HTMLImageElement).src = PLACEHOLDER;
           }}
         />
-        {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
           <span
             className={`text-xs font-semibold px-2 py-1 rounded-full capitalize ${badge(listingType)}`}
@@ -50,11 +49,11 @@ export const PropertyCard = ({ property }: Props) => {
           {title}
         </h3>
         <p className="text-ink-muted text-xs mb-3">
-          📍 {location.city}, {location.country}
+          {location.city}, {location.country}
         </p>
         <div className="mt-auto flex items-center justify-between">
           <span className="text-primary font-bold text-lg">
-            ${price.toLocaleString()}
+            FCFA{price.toLocaleString()}
             {listingType === "rent" && (
               <span className="text-ink-light font-normal text-sm">/mo</span>
             )}
