@@ -1,5 +1,6 @@
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import type { PropertyPayload, PropertyType, ListingType } from "../../types";
+import axios from "axios";
 import { Input } from "../ui/Input";
 import { Select } from "../ui/Select";
 import { Button } from "../ui/Button";
@@ -56,7 +57,7 @@ export const PropertyForm = ({
     return "";
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) {
@@ -80,11 +81,15 @@ export const PropertyForm = ({
           .map((s) => s.trim())
           .filter(Boolean),
       });
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message ??
-          "Something went wrong. Please try again.",
-      );
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(
+          err.response?.data?.message ??
+            "Something went wrong. Please try again.",
+        );
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

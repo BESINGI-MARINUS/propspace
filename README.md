@@ -31,9 +31,9 @@ It was built as a MERN-stack project using TypeScript end to end:
 
 **Authentication & accounts**
 
-- Register and log in with a hashed/salted password (bcrypt) and a JWT session
-- Update profile (username, phone, avatar) and change password (requires the old password)
-- Protected routes on both the API and the frontend — pages like the dashboard redirect to login if you're signed out
+- Register and log in.
+- Update profile (username, phone, avatar) and change password.
+- Protected routes on both the API and the frontend. Pages like the dashboard redirect to login if you're signed out
 
 **Property listings**
 

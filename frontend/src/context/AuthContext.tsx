@@ -1,19 +1,6 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  type ReactNode,
-} from "react";
+import { useState, useEffect, type ReactNode } from "react";
+import { AuthContext } from "./auth";
 import type { User, AuthState } from "../types";
-
-interface AuthContextValue extends AuthState {
-  login: (token: string, user: User) => void;
-  logout: () => void;
-  updateUser: (user: User) => void;
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<AuthState>(() => {
@@ -54,9 +41,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Convenience hook — throws if used outside AuthProvider
-export const useAuth = (): AuthContextValue => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used inside AuthProvider");
-  return ctx;
-};
+// This file intentionally exports only the `AuthProvider` component so
+// React Fast Refresh remains enabled for component updates.

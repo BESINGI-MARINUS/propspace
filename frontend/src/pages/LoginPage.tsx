@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loginApi } from "../api/auth.api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/auth";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { ErrorMessage } from "../components/ui/Feedback";

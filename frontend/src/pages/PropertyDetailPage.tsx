@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import type { Property } from "../types";
 import { getPropertyApi, deletePropertyApi } from "../api/property.api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/auth";
 import { Button } from "../components/ui/Button";
 import { Spinner, ErrorMessage } from "../components/ui/Feedback";
 
@@ -15,14 +15,14 @@ export const PropertyDetailPage = () => {
   const { user, isAuthenticated } = useAuth();
 
   const [property, setProperty] = useState<Property | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeImg, setActiveImg] = useState(0);
   const [deleting, setDeleting] = useState(false);
 
+  const loading = property === null && error === "";
+
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
 
     getPropertyApi(id!)
       .then((data) => {
@@ -30,9 +30,6 @@ export const PropertyDetailPage = () => {
       })
       .catch(() => {
         if (!cancelled) setError("Property not found or unavailable.");
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
       });
 
     return () => {

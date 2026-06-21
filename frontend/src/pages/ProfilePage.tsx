@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/auth";
 import { updateProfileApi, changePasswordApi } from "../api/user.api";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
