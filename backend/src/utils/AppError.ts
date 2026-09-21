@@ -13,7 +13,6 @@ export class AppError extends Error {
 }
 
 // Convenience factories for the most common cases
-// These read better at call sites than `new AppError("...", 404)` everywhere.
 
 export const badRequest = (message: string) => new AppError(message, 400);
 export const unauthorized = (message: string) => new AppError(message, 401);

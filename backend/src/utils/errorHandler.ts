@@ -29,7 +29,7 @@ export const errorHandler = (
     return;
   }
 
-  // MongoDB duplicate key error (unique index violation: email, username)
+  // MongoDB duplicate key error
   if (isDuplicateKeyError(err)) {
     const field = Object.keys(err.keyPattern ?? {})[0] ?? "field";
     res.status(409).json({ message: `This ${field} is already in use.` });
@@ -48,20 +48,20 @@ export const errorHandler = (
     return;
   }
 
-  // Anything unexpected: log the real error, never leak internals to client
+  // Anything unexpected: log the real error,
   console.error("Unhandled error:", err);
   res.status(500).json({ message: "Something went wrong. Please try again." });
 };
 
-/**
- * Type guard for MongoDB's duplicate key error.
- * It's a plain driver error, not a Mongoose class, so we check its shape.
- */
+// MongoDB duplicate-key errors use a fixed error code (11000) when a unique index is violated.
+// The `keyPattern` field identifies which field caused the conflict, such as email or username.
 interface DuplicateKeyError {
   code: 11000;
   keyPattern?: Record<string, unknown>;
 }
 
+// Type guard to detect whether an unknown error is a MongoDB duplicate-key violation.
+// This allows the handler to safely read the error metadata and return a clear client message.
 const isDuplicateKeyError = (err: unknown): err is DuplicateKeyError =>
   typeof err === "object" &&
   err !== null &&

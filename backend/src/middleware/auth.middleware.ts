@@ -12,7 +12,7 @@ export const protect = asyncHandler<AuthRequest>(async (req, _res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith("Bearer ")) {
-    throw unauthorized("No token provided. Access denied.");
+    throw unauthorized("No access token provided. Access denied.");
   }
 
   const token = authHeader.split(" ")[1];

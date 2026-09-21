@@ -5,7 +5,7 @@ PropSpace is a full-stack property listing application. Authenticated users can 
 It was built as a MERN-stack project using TypeScript end to end:
 
 - **Backend** - Node.js, Express, MongoDB (Mongoose), JWT authentication, layered architecture (routes → controllers/services → repositories)
-- **Frontend** - React (Vite), TypeScript, Tailwind CSS, React Router, Axios
+- **Frontend** - React, TypeScript, Tailwind CSS, React Router, Axios
 
 ---
 
@@ -39,15 +39,15 @@ It was built as a MERN-stack project using TypeScript end to end:
 
 - Public feed of all listings, filterable by city and price range — no login required
 - "My Listings" dashboard showing only properties you own
-- Create, edit, and delete listings (only the listing's author can edit or delete it — enforced server-side, not just hidden in the UI)
+- Create, edit, and delete listings (only the listing's author can edit or delete it)
 - Each listing has a title, description, price, location, property type (Apartment / House / Studio), listing type (rent / sale), and image URLs
 
 **Engineering details**
 
-- Backend follows a strict 3-layer architecture: routes only parse/route, services hold business logic, repositories are the only layer that talks to MongoDB
+- Backend follows a strict 3-layer architecture: routes only parse/route, services hold business logic, repositories communicate with to MongoDB
 - Ownership checks happen in dedicated middleware before any database write
 - Frontend uses a global Axios instance with an interceptor that auto-attaches the JWT to every request
-- Fully typed on both ends — no `any` left unaddressed, `tsc --noEmit` passes clean on both projects
+- Fully typed on both ends.
 
 ---
 
@@ -61,7 +61,7 @@ propspace/
 │   │   ├── controllers/     # Parses requests, calls services, shapes responses
 │   │   ├── middleware/      # JWT auth guard, ownership guard
 │   │   ├── models/          # Mongoose schemas (User, Property)
-│   │   ├── repositories/    # All direct database queries live here
+│   │   ├── repositories/    # All direct database queries
 │   │   ├── routes/          # Express routers
 │   │   ├── services/        # Business logic & validation
 │   │   ├── types/           # Shared TypeScript interfaces

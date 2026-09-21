@@ -14,9 +14,7 @@ export const checkOwnership = asyncHandler<AuthRequest>(
   async (req, _res, next) => {
     const property = await Property.findById(req.params.id);
 
-    if (!property) {
-      throw notFound("Property not found.");
-    }
+    if (!property) throw notFound("Property not found.");
 
     if (property.owner.toString() !== req.user._id.toString()) {
       throw forbidden("Forbidden. You are not the owner of this listing.");

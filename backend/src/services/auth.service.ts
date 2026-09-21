@@ -11,11 +11,11 @@ const generateToken = (userId: string): string => {
 };
 
 const sanitizeUser = (user: IUser): SafeUser => ({
-  _id:      user._id,
+  _id: user._id,
   username: user.username,
-  email:    user.email,
-  phone:    user.phone,
-  avatar:   user.avatar,
+  email: user.email,
+  phone: user.phone,
+  avatar: user.avatar,
   createdAt: user.createdAt,
 });
 
@@ -29,7 +29,9 @@ export const registerUser = async (data: {
     throw conflict("An account with this email already exists.");
   }
 
-  const existingUsername = await authRepository.findUserByUsername(data.username);
+  const existingUsername = await authRepository.findUserByUsername(
+    data.username,
+  );
   if (existingUsername) {
     throw conflict("This username is already taken.");
   }
@@ -45,16 +47,10 @@ export const loginUser = async (data: {
 }): Promise<AuthResult> => {
   const user = await authRepository.findUserByEmail(data.email);
 
-  if (!user) {
-    // Same message for "no such user" and "wrong password" — avoids
-    // leaking which one failed (credential enumeration defence).
-    throw unauthorized("Invalid email or password.");
-  }
+  if (!user) throw unauthorized("Invalid email or password.");
 
   const isMatch = await user.comparePassword(data.password);
-  if (!isMatch) {
-    throw unauthorized("Invalid email or password.");
-  }
+  if (!isMatch) throw unauthorized("Invalid email or password.");
 
   const token = generateToken(user._id.toString());
   return { token, user: sanitizeUser(user) };

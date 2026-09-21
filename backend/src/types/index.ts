@@ -2,7 +2,6 @@ import { Document, Types } from "mongoose";
 import { Request } from "express";
 
 // User
-
 export interface IUser extends Document {
   _id: Types.ObjectId;
   username: string;
@@ -26,7 +25,6 @@ export interface SafeUser {
 }
 
 // Property
-
 export type PropertyType = "Apartment" | "House" | "Studio";
 export type ListingType = "rent" | "sale";
 
@@ -48,7 +46,6 @@ export interface IProperty extends Document {
 }
 
 // Auth
-
 export interface AuthResult {
   token: string;
   user: SafeUser;
@@ -56,7 +53,6 @@ export interface AuthResult {
 
 // Request extensions
 // Extend Express Request so req.user and req.property are typed everywhere
-
 export interface AuthRequest extends Request {
   user: IUser;
 }
